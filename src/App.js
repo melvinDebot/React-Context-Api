@@ -1,15 +1,64 @@
 import React from 'react';
 import './App.css';
-
-import Title from './Title';
-
+import Data from './Components/Data';
 
 class App extends React.Component{
+  constructor(){
+    super();
+    this.state = {
+      chartData : {},
+      apiData: [
+
+      ]
+    }
+  }
+
+  // componentWillMount(){
+  //   this.getChartData();
+  //   this.callApi()
+  // }
+
+  // getChartData(){
+  //   let apiData = this.state.apiData
+  //   this.setState({
+  //     chartData : {
+  //       labels : [
+  //         'Boston1', 'Lowell', 'Cambrigride', 'New York', 'paris'
+  //       ],
+  //       datasets : [
+  //         {
+  //           labels : 'population',
+  //           data: [
+  //             4,
+  //             10,
+  //             14,
+  //             20,
+  //             2
+  //           ],
+  //           backgroundColor : [
+  //             'red', 'green', 'yellow', 'lightblue', 'pink'
+  //           ]
+  //         }
+  //       ]
+  //     }
+  //   })
+  // }
+
+  // callApi(){
+  //   fetch("https://jsonplaceholder.typicode.com/users")
+  //   .then(res => res.json())
+  //   .then((result) => {
+  //     this.setState({
+  //       apiData : result
+  //     })
+  //   })
+  //   console.log(this.state.apiData)
+  // }
+  
   render(){
     return(
       <div>
-        <h1>DATA WE CONSUMED</h1>
-        <Title />
+        <Data />
       </div>
     )
   }
@@ -17,10 +66,3 @@ class App extends React.Component{
 
 export default App;
 
-// {(val)=> <div>
-//   {
-//     val.posts.map(p=><div>
-//       <h5>{p.title}</h5>
-//     </div>)
-//   }
-// </div>}
