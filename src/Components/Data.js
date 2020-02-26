@@ -50,21 +50,20 @@ class Data extends React.Component{
     this.setState({
       total : total
     })
-    console.log(total)
   }
 
   handleClick = () => {
-    let add = this.state.dataApi[0].value
+    let o = JSON.parse(JSON.stringify(this.state.dataApi));
+    o[0].value = this.state.dataApi[0].value + 1
     this.setState({
-      
+      dataApi : o
     })
-    console.log(add)
   }
 
   render(){
     return(
       <div className="dataStyle">
-      <h1>Activités</h1>
+      {/* <h1>Activités</h1>
         <div className="data">
           <ResponsivePie
             data={this.state.dataApi}
@@ -76,7 +75,7 @@ class Data extends React.Component{
             animate={true}
           />
           <p> Durant les les JO vous avez fait <strong>{this.state.total}</strong> activités</p>
-        </div>
+        </div> */}
         <div className="dataTwo">
           <p>Musée . {this.state.dataApi[0].value} visités </p>
           <BarChart 
@@ -91,7 +90,7 @@ class Data extends React.Component{
             height={10}
           />
         </div>
-        <button onClick={this.handleClick}>Add Me</button>
+        {/* <button onClick={this.handleClick}>Add Me</button> */}
         
       </div>
     )

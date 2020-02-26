@@ -1,68 +1,113 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import Data from './Components/Data';
+// import Data from './Components/Data';
+import Chart from './Components/Chart';
+import Button from './Components/Button';
 
-class App extends React.Component{
+const api = [
+  [
+    {
+      name : 'Musée',
+      id: "Musée",
+      value : 50,
+      labels: "Musée",
+      backgroundColor : "green"
+    },
+  ],
+  [
+    {
+      name : 'Cinéma',
+      id: "Cinéma",
+      value : 10,
+      labels: "Cinéma",
+      backgroundColor : "purple"
+    },
+  ],
+  [
+    {
+      name : 'Monument',
+      id: "Monument",
+      value : 13,
+      labels: "Monument",
+      backgroundColor : "red"
+    },
+  ]
+]
+
+let arrayJson = api
+let test = arrayJson[0][0].value
+
+const graphDatas = () => {
+  let datas = []
+  let colors = []
+  api.forEach(type => {
+    datas.push(type[0].value)
+    colors.push(type[0].backgroundColor)
+  })
+  return {datas: datas, colors: colors}
+}
+
+
+
+class App extends Component {
   constructor(){
     super();
     this.state = {
-      chartData : {},
-      apiData: [
-
-      ]
+      chartData:{
+        datasets:[
+          {
+            label:'Population',
+            data: graphDatas().datas,
+            backgroundColor: graphDatas().colors
+          }
+        ]
+      },
+      total : 0
     }
   }
 
-  // componentWillMount(){
-  //   this.getChartData();
-  //   this.callApi()
-  // }
+  componentWillMount(){
+    setTimeout(()=> {
+      this.getTotal()
+    }, 8000)
+  }
 
-  // getChartData(){
-  //   let apiData = this.state.apiData
+  handleClick = () => {
+    let yess = this.state.chartData.datasets[0].data[0]
+    let number = this.state.chartData.datasets[0].data[0] ++
+    this.setState({
+      yess : number++
+    })
+  }
+
+  getTotal = (i) => {
+    let arrayApi = this.state.chartData.datasets[0].data
+    let total = this.state.total
+    for(i = 0; i < arrayApi.length; i++){
+      total += arrayApi[i]
+      
+    }
+    this.setState({
+      total : total
+    })
+  }
+
+
+  // componentDidMount(){
   //   this.setState({
-  //     chartData : {
-  //       labels : [
-  //         'Boston1', 'Lowell', 'Cambrigride', 'New York', 'paris'
-  //       ],
-  //       datasets : [
-  //         {
-  //           labels : 'population',
-  //           data: [
-  //             4,
-  //             10,
-  //             14,
-  //             20,
-  //             2
-  //           ],
-  //           backgroundColor : [
-  //             'red', 'green', 'yellow', 'lightblue', 'pink'
-  //           ]
-  //         }
-  //       ]
-  //     }
+  //     labels : this.state.chartData.labels.push(api[0])
   //   })
   // }
 
-  // callApi(){
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //   .then(res => res.json())
-  //   .then((result) => {
-  //     this.setState({
-  //       apiData : result
-  //     })
-  //   })
-  //   console.log(this.state.apiData)
-  // }
-  
-  render(){
-    return(
-      <div>
-        <Data />
+  render() {
+    return (
+      <div className="App">
+        <Chart chartData={this.state.chartData} total={this.state.total}/>
+        <Button cliked={this.handleClick}/>
+        {/* <Data /> */}
       </div>
-    )
+    );
   }
 }
 
 export default App;
-
